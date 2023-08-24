@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct stack {
+    int capacity;
+    int top;
+    int* array;
+};
+struct stack* memoryAllocation(){
+    struct stack *newnode;
+    newnode= (struct stack *)malloc(sizeof(struct stack));
+    newnode->top=-1;
+    printf("enter the capacity of ur stack\n");
+    scanf("%d",&newnode->capacity);
+    newnode->array=(int*)malloc(sizeof(int)*newnode->capacity);
+    return newnode;
+}
+void isFull(struct stack *newnode){
+    if(newnode->capacity==newnode->top+1){
+        printf("stack is full\n");
+    }
+    else{
+        printf("stack is not full\n");
+    }
+}
+void isEmpty(struct stack *newnode){
+    if(newnode->top==-1){
+        printf("stack is completely empty\n");
+    }
+    else{
+        printf("stack is not completely empty\n");
+    }
+}
+void push(struct stack *newnode){
+    int data;
+     if(newnode->capacity==(newnode->top)+1){
+        printf("stack is full\n");
+    }
+    else{
+    printf("enter the data u want to enter\n");
+    scanf("%d",&data);
+    newnode->top++;
+    newnode->array[newnode->top]=data;
+    }
+}
+void pop(struct stack *newnode){
+    if(newnode->top==-1){
+        printf("stack is completely empty\n");
+    }
+    else{
+          printf("you have successfylly popped out the value %d \n",newnode->array[newnode->top]);
+     newnode->top--;
+    }
+  
+}
+void display(struct stack *newnode){
+    int i=0;
+    printf("Here are your elements in ur stacks !");
+    while(i<=newnode->top){
+        printf(" %d \n",newnode->array[i]);
+        i++;
+    }
+}
+int main(){
+     int stackNumbers;
+     int stackNumber;
+     int option;
+     int leaveMain=1;
+     printf("Enter how many stacks you want to create\n");
+     scanf("%d",&stackNumbers);
+     struct stack * array[stackNumbers];
+     for(int i=0;i<stackNumbers;i++)
+     array[i]=NULL;
+     while(leaveMain!=0){
+         int leave=1;
+          printf("enter which stack u want to operate\n");
+     scanf("%d",&stackNumber);
+     if(array[stackNumber-1]==NULL){
+         array[stackNumber-1]=memoryAllocation();
+     }
+                  while(leave!=0){ 
+     printf("enter 1 for pushing in ur stack\n");
+     printf("enter 2 for popping out of ur stack\n");
+     printf("enter 3 for displaying ur stack\n");
+     printf("enter 4 for going back\n");
+     printf("enter 5 for exiting this program\n");
+     printf("___________________________________________\n");
+         printf("enter a option !\n");
+         scanf("%d",&option);
+         switch(option){
+             case 1:
+             push(array[stackNumber-1]);
+             break;
+             case 2:
+             pop(array[stackNumber-1]);
+             break;
+             case 3:
+             display(array[stackNumber-1]);
+             break;
+             case 4:
+             leave=0; 
+             break;
+             case 5:
+             leaveMain=0;leave=0;
+             break;
+             default:
+             printf("please enter a valid option!");
+         }
+     }
+     }
+    return 0;
+}
